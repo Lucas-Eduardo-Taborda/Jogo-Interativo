@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      background-color: #222;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    #jogo {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background-color: skyblue;
+      overflow: hidden;
+    }
+
+    #personagem {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      left: 100px;
+      top: 100px;
+      background-color: red;
+      border: 3px solid darkred;
+      border-radius: 8px;
+    }
+
+    #mensagem {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: white;
+      font-size: 18px;
+      text-shadow: 2px 2px 3px black;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="jogo">
+    <div id="mensagem">
+      Use as setas do teclado ou W, A, S e D
+    </div>
+
+    <div id="personagem"></div>
+  </div>
+
+  <script>
+    const personagem = document.getElementById("personagem");
+    const jogo = document.getElementById("jogo");
+
+    let x = 100;
+    let y = 100;
+    const velocidade = 5;
+
+    const teclas = {};
+
+    document.addEventListener("keydown", function(evento) {
+      teclas[evento.key] = true;
+      teclas[evento.key.toLowerCase()] = true;
+    });
+
+    document.addEventListener("keyup", function(evento) {
+      teclas[evento.key] = false;
+      teclas[evento.key.toLowerCase()] = false;
+    });
+
+    function jogar() {
+      if (teclas["ArrowUp"] || teclas["w"]) {
+        y -= velocidade;
+      }
+
+      if (teclas["ArrowDown"] || teclas["s"]) {
+        y += velocidade;
+      }
+
+      if (teclas["ArrowLeft"] || teclas["a"]) {
+        x -= velocidade;
+      }
+
+      if (teclas["ArrowRight"] || teclas["d"]) {
+        x += velocidade;
+      }
+
+      const limiteDireita = jogo.clientWidth - personagem.offsetWidth;
+      const limiteBaixo = jogo.clientHeight - personagem.offsetHeight;
+
+      x = Math.max(0, Math.min(x, limiteDireita));
+      y = Math.max(0, Math.min(y, limiteBaixo));
+
+      personagem.style.left = x + "px";
+      personagem.style.top = y + "px";
+
+      requestAnimationFrame(jogar);
+    }
+
+    jogar();
+  </script>
+</body>
+</html>

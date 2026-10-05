@@ -1,0 +1,34 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background-color: #222;
+  overflow: hidden;
+}
+
+#jogo {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: #87ceeb;
+  overflow: hidden;
+}
+
+#personagem {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  width: 50px;
+  height: 50px;
+  background-color: red;
+  border: 3px solid darkred;
+  border-radius: 8px;
+}
